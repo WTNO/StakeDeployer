@@ -18,6 +18,6 @@ func ReadAndWriteFile(inputFilePath, outputFilePath string) error {
 		return err
 	}
 
-	log.Println("文件写入成功！")
+	log.Printf("write to %s success!", outputFilePath)
 	return nil
 }
