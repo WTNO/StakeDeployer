@@ -8,10 +8,20 @@ import (
 func Step1() {
 	fmt.Println("Step 1 has started...")
 	// 下载存款工具
-	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
+	//command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
+
+	// 解压
+	//command.RunCommand("/bin/bash", "-c", "tar xvf staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
+	//command.RunCommand("/bin/bash", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64")
+	//command.RunCommand("/bin/bash", "-c", "ls")
 
 	// 运行存款工具
-	command.RunCommand("./deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84")
+	//err := command.RunCommand("/bin/bash", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64 && ./deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84")
+	err := command.RunCommand("sh", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64 && ls")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
 	fmt.Println("Step 1 is over...")
 }
