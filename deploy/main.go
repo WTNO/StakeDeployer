@@ -4,15 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"github.com/wtno/StakeDeployer/step"
-	"os"
 )
 
 func main() {
 	// 解析命令行参数
 	stepNum := flag.Int("step", 1, "the step to execute")
 	flag.Parse()
-
-	fmt.Println("args:", os.Args[2])
 
 	// 根据命令行参数决定执行哪个步骤的函数
 	switch *stepNum {
