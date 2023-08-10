@@ -1,12 +1,24 @@
 package step
 
 import (
+	"bytes"
 	"fmt"
+	"log"
+	"os/exec"
 )
 
 func Step1() {
-	// 第一个步骤的逻辑
-	fmt.Println("Step 1")
+	cmd := exec.Command("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	err := cmd.Run()
+	if err != nil {
+		fmt.Printf("error:\n%s\n", stderr.String())
+		log.Fatalf("cmd.Run() failed: %v\n", err)
+	}
+
+	fmt.Printf("output:\n%s\nerror:\n%s\n", stdout.String(), stderr.String())
 }
 
 func Step2() {
