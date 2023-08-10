@@ -1,24 +1,19 @@
 package step
 
 import (
-	"bytes"
 	"fmt"
-	"log"
-	"os/exec"
+	"github.com/wtno/StakeDeployer/command"
 )
 
 func Step1() {
-	cmd := exec.Command("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
-	var stdout, stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-	err := cmd.Run()
-	if err != nil {
-		fmt.Printf("error:\n%s\n", stderr.String())
-		log.Fatalf("cmd.Run() failed: %v\n", err)
-	}
+	fmt.Println("Step 1 has started...")
+	// 下载存款工具
+	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
 
-	fmt.Printf("output:\n%s\nerror:\n%s\n", stdout.String(), stderr.String())
+	// 运行存款工具
+	command.RunCommand("./deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84")
+
+	fmt.Println("Step 1 is over...")
 }
 
 func Step2() {
