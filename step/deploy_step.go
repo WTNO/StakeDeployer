@@ -22,7 +22,6 @@ func Step1() {
 		fmt.Println(err.Error())
 		return
 	}
-
 	fmt.Println("Step 1 is over...")
 }
 
