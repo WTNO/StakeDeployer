@@ -5,8 +5,16 @@ import (
 	"sync"
 )
 
+type MyStruct struct {
+	S string
+}
+
 var StepMap = map[string]interface{}{
 	"step1": Step1,
+}
+
+func (ms MyStruct) Print() string {
+	return ms.S
 }
 
 func Step1(wg *sync.WaitGroup, ch chan bool) {
@@ -53,4 +61,5 @@ func Step5(wg *sync.WaitGroup, ch chan bool) {
 	<-ch
 	// 第五个步骤的逻辑
 	fmt.Println("Step 5")
+	close(ch)
 }
