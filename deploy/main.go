@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/wtno/StakeDeployer/step"
-	"sync"
+	"os"
 )
 
 func main() {
@@ -12,30 +12,65 @@ func main() {
 	stepNum := flag.Int("step", 1, "the step to execute")
 	flag.Parse()
 
-	// 创建一个等待组和一个通道
-	var wg sync.WaitGroup
-	ch := make(chan bool)
-
-	// 增加等待组的计数器
-	wg.Add(5)
+	fmt.Println("args:", os.Args[2])
 
 	// 根据命令行参数决定执行哪个步骤的函数
 	switch *stepNum {
 	case 1:
-		go step.Step1(&wg, ch)
+		step.Step1()
+		fallthrough
 	case 2:
-		go step.Step2(&wg, ch)
+		step.Step2()
+		fallthrough
 	case 3:
-		go step.Step3(&wg, ch)
+		step.Step3()
+		fallthrough
 	case 4:
-		go step.Step4(&wg, ch)
+		step.Step4()
+		fallthrough
 	case 5:
-		go step.Step5(&wg, ch)
+		step.Step5()
+		fallthrough
+	case 6:
+		step.Step6()
+		fallthrough
+	case 7:
+		step.Step7()
+		fallthrough
+	case 8:
+		step.Step8()
+		fallthrough
+	case 9:
+		step.Step9()
+		fallthrough
+	case 10:
+		step.Step10()
+		fallthrough
+	case 11:
+		step.Step11()
+		fallthrough
+	case 12:
+		step.Step12()
+		fallthrough
+	case 13:
+		step.Step13()
+		fallthrough
+	case 14:
+		step.Step14()
+		fallthrough
+	case 15:
+		step.Step15()
+		fallthrough
+	case 16:
+		step.Step16()
+		fallthrough
+	case 17:
+		step.Step17()
+		fallthrough
+	case 18:
+		step.Step18()
+		fallthrough
 	default:
-		fmt.Println("Invalid step")
+		fmt.Println("The deployment execution has concluded.")
 	}
-
-	// 等待所有goroutine执行完毕
-	wg.Wait()
-
 }

@@ -2,64 +2,94 @@ package step
 
 import (
 	"fmt"
-	"sync"
 )
 
-type MyStruct struct {
-	S string
-}
-
-var StepMap = map[string]interface{}{
-	"step1": Step1,
-}
-
-func (ms MyStruct) Print() string {
-	return ms.S
-}
-
-func Step1(wg *sync.WaitGroup, ch chan bool) {
-	defer wg.Done()
+func Step1() {
 	// 第一个步骤的逻辑
 	fmt.Println("Step 1")
-	// 完成第一个步骤后，向通道发送信号
-	ch <- true
 }
 
-func Step2(wg *sync.WaitGroup, ch chan bool) {
-	defer wg.Done()
-	// 等待第一个步骤完成的信号
-	<-ch
+func Step2() {
 	// 第二个步骤的逻辑
 	fmt.Println("Step 2")
-	// 完成第二个步骤后，向通道发送信号
-	ch <- true
 }
 
-func Step3(wg *sync.WaitGroup, ch chan bool) {
-	defer wg.Done()
-	// 等待第二个步骤完成的信号
-	<-ch
+func Step3() {
 	// 第三个步骤的逻辑
 	fmt.Println("Step 3")
-	// 完成第三个步骤后，向通道发送信号
-	ch <- true
 }
 
-func Step4(wg *sync.WaitGroup, ch chan bool) {
-	defer wg.Done()
-	// 等待第三个步骤完成的信号
-	<-ch
+func Step4() {
 	// 第四个步骤的逻辑
 	fmt.Println("Step 4")
-	// 完成第四个步骤后，向通道发送信号
-	ch <- true
 }
 
-func Step5(wg *sync.WaitGroup, ch chan bool) {
-	defer wg.Done()
-	// 等待第四个步骤完成的信号
-	<-ch
+func Step5() {
 	// 第五个步骤的逻辑
 	fmt.Println("Step 5")
-	close(ch)
+}
+
+func Step6() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 6")
+}
+
+func Step7() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 7")
+}
+
+func Step8() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 8")
+}
+
+func Step9() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 9")
+}
+
+func Step10() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 10")
+}
+
+func Step11() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 11")
+}
+
+func Step12() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 12")
+}
+
+func Step13() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 13")
+}
+
+func Step14() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 14")
+}
+
+func Step15() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 15")
+}
+
+func Step16() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 16")
+}
+
+func Step17() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 17")
+}
+
+func Step18() {
+	// 第五个步骤的逻辑
+	fmt.Println("Step 18")
 }
