@@ -12,12 +12,10 @@ func Step1() {
 
 	// 解压
 	//command.RunCommand("/bin/bash", "-c", "tar xvf staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
-	//command.RunCommand("/bin/bash", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64")
-	//command.RunCommand("/bin/bash", "-c", "ls")
 
 	// 运行存款工具
-	//err := command.RunCommand("/bin/bash", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64 && ./deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84")
-	command.RunCommand("sh", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64 && ls")
+	command.RunCommand("./staking_deposit-cli-d7b5304-linux-amd64/deposit", "new-mnemonic", "--num_validators 2", "--chain goerli", "--eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84")
+
 	fmt.Println("Step 1 is over...")
 }
 
