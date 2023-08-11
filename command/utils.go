@@ -2,10 +2,24 @@ package command
 
 import (
 	"fmt"
+	expect "github.com/google/goexpect"
+	"log"
 	"os/exec"
 )
 
-func RunCommand(name string, arg ...string) error {
+type Dial struct {
+	expect string
+	send   string
+}
+
+func RunCommand(name string, arg ...string) {
+	err := runCommand(name, arg...)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func runCommand(name string, arg ...string) error {
 	cmd := exec.Command(name, arg...) // 命令的错误输出和标准输出都连接到同一个管道
 	stdout, err := cmd.StdoutPipe()
 	cmd.Stderr = cmd.Stdout
@@ -35,5 +49,16 @@ func RunCommand(name string, arg ...string) error {
 		return err
 	}
 
+	return nil
+}
+
+func RunExpect(command string, dials ...Dial) error {
+	e, _, err := expect.Spawn(command, -1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer e.Close()
+
+	//e.Expect()
 	return nil
 }
