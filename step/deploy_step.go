@@ -29,17 +29,17 @@ func Step1() {
 	fmt.Println(strs)
 	e.Send("\n")
 
-	e.Expect(regexp.MustCompile(".*Repeat your execution address for confirmation.*"), 10*time.Minute)
+	str, strs, _ = e.Expect(regexp.MustCompile(".*Repeat your execution address for confirmation.*"), 10*time.Minute)
 	fmt.Println(str)
 	fmt.Println(strs)
 	e.Send("0x4D496CcC28058B1D74B7a19541663E21154f9c84\n")
 
-	e.Expect(regexp.MustCompile(".*Please choose the language of the mnemonic word list.*"), 10*time.Minute)
+	str, strs, _ = e.Expect(regexp.MustCompile(".*Please choose the language of the mnemonic word list.*"), 10*time.Minute)
 	fmt.Println(str)
 	fmt.Println(strs)
 	e.Send("\n")
 
-	e.Expect(regexp.MustCompile(".*Create a password that secures your validator keystore.*"), 10*time.Minute)
+	str, strs, _ = e.Expect(regexp.MustCompile(".*Create a password that secures your validator keystore.*"), 10*time.Minute)
 	fmt.Println(str)
 	fmt.Println(strs)
 	e.Send("123456\n")
