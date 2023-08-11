@@ -3,9 +3,8 @@ package step
 import (
 	"fmt"
 	expect "github.com/google/goexpect"
+	"github.com/wtno/StakeDeployer/command"
 	"log"
-	"regexp"
-	"time"
 )
 
 func Step1() {
@@ -24,25 +23,30 @@ func Step1() {
 	}
 	defer e.Close()
 
-	str, strs, _ := e.Expect(regexp.MustCompile(".*Using the tool on an offline and secure device is highly recommended to keep your mnemonic safe..*"), 10*time.Minute)
-	fmt.Println(str)
-	fmt.Println(strs)
-	e.Send("\n")
+	command.RunExpect(e, ".*Using the tool on an offline and secure device is highly recommended to keep your mnemonic safe..*", "\n")
 
-	str, strs, _ = e.Expect(regexp.MustCompile(".*Repeat your execution address for confirmation.*"), 10*time.Minute)
-	fmt.Println(str)
-	fmt.Println(strs)
-	e.Send("0x4D496CcC28058B1D74B7a19541663E21154f9c84\n")
+	command.RunExpect(e, ".*Repeat your execution address for confirmation.*", "0x4D496CcC28058B1D74B7a19541663E21154f9c84\n")
 
-	str, strs, _ = e.Expect(regexp.MustCompile(".*Please choose the language of the mnemonic word list.*"), 10*time.Minute)
-	fmt.Println(str)
-	fmt.Println(strs)
-	e.Send("\n")
+	command.RunExpect(e, ".*Please choose the language of the mnemonic word list.*", "\n")
 
-	str, strs, _ = e.Expect(regexp.MustCompile(".*Create a password that secures your validator keystore.*"), 10*time.Minute)
-	fmt.Println(str)
-	fmt.Println(strs)
-	e.Send("123456\n")
+	command.RunExpect(e, ".*Create a password that secures your validator keystore.*", "12345678\n")
+
+	command.RunExpect(e, ".*Repeat your keystore password for confirmation:.*", "12345678\n")
+
+	// 这一步需要保存mnemonic
+	// This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.
+	//
+	//
+	// alarm fog wedding immense success couch staff future endless dilemma broccoli clever rotate humor endless toward laugh include loan invite segment use moral float
+	//
+	//
+	// Press any key when you have written down your mnemonic.
+	command.RunExpect(e, ".*This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.*", "\n")
+
+	// 输入上一步中的mnemonic
+	command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", "\n")
+
+	command.RunExpect(e, ".*Success!\nYour keys can be found at.*", "\n")
 
 	fmt.Println("Step 1 is over...")
 }

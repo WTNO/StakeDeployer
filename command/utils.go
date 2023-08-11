@@ -3,8 +3,9 @@ package command
 import (
 	"fmt"
 	expect "github.com/google/goexpect"
-	"log"
 	"os/exec"
+	"regexp"
+	"time"
 )
 
 type Dial struct {
@@ -52,13 +53,21 @@ func runCommand(name string, arg ...string) error {
 	return nil
 }
 
-func RunExpect(command string, dials ...Dial) error {
-	e, _, err := expect.Spawn(command, -1)
+func RunExpect(e *expect.GExpect, regexpStr, sendStr string) error {
+	output, _, err := e.Expect(regexp.MustCompile(regexpStr), 10*time.Minute)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("RunExpect Error : ", err)
 	}
-	defer e.Close()
 
-	//e.Expect()
+	fmt.Println(output)
+
+	err = e.Send(sendStr)
+	if err != nil {
+		fmt.Println("RunExpect Error : ", err)
+	}
+	return nil
+}
+
+func RunExpectBatch(e *expect.GExpect, command string, dials ...Dial) error {
 	return nil
 }
