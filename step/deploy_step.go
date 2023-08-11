@@ -17,11 +17,7 @@ func Step1() {
 
 	// 运行存款工具
 	//err := command.RunCommand("/bin/bash", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64 && ./deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84")
-	err := command.RunCommand("sh", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64 && ls")
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
+	command.RunCommand("sh", "-c", "cd staking_deposit-cli-d7b5304-linux-amd64 && ls")
 	fmt.Println("Step 1 is over...")
 }
 

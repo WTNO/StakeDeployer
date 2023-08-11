@@ -10,10 +10,12 @@ func RunCommand(name string, arg ...string) error {
 	stdout, err := cmd.StdoutPipe()
 	cmd.Stderr = cmd.Stdout
 	if err != nil {
+		fmt.Println(err.Error())
 		return err
 	}
 
 	if err = cmd.Start(); err != nil {
+		fmt.Println(err.Error())
 		return err
 	}
 
@@ -23,11 +25,13 @@ func RunCommand(name string, arg ...string) error {
 		_, err := stdout.Read(tmp)
 		fmt.Print(string(tmp))
 		if err != nil {
+			fmt.Println(err.Error())
 			break
 		}
 	}
 
 	if err = cmd.Wait(); err != nil {
+		fmt.Println(err.Error())
 		return err
 	}
 
