@@ -33,7 +33,7 @@ func Step1() {
 
 	command.RunExpect(e, ".*Create a password that secures your validator keystore.*", "12345678\n")
 
-	command.RunExpect(e, ".*Eepeat your keystore password for confirmatio.*", "12345678\n")
+	command.RunExpect(e, ".*Repeat your keystore password for confirmatio.*", "12345678\n")
 
 	//e.ExpectBatch([]expect.Batcher{
 	//	&expect.BExp{R: ".*Using the tool on an offline and secure device is highly recommended to keep your mnemonic safe..*"},
