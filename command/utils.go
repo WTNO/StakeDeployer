@@ -67,6 +67,8 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 	fmt.Println("1-----------------------------------------------------")
 
 	output, match, err := e.Expect(regexp.MustCompile(regexpStr), 10*time.Minute)
+	fmt.Println("1.5--- : ", output, match, err)
+
 	if err != nil {
 		fmt.Println("Expect Error : ", err)
 	}
