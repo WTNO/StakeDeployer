@@ -33,7 +33,7 @@ func Step1() {
 
 	command.RunExpect(e, ".*Create a password that secures your validator keystore.*", "123456789\n")
 
-	command.RunExpect(e, ".*Repeat your keystore password for confirmation:.*", "123456789\n")
+	command.RunExpect(e, ".*Repeat your keystore password for confirmation.*", "123456789\n")
 
 	// 这一步需要保存mnemonic
 	// This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.
