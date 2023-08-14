@@ -5,6 +5,7 @@ import (
 	expect "github.com/google/goexpect"
 	"os/exec"
 	"regexp"
+	"strings"
 	"time"
 )
 
@@ -66,6 +67,10 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 	output, match, err := e.Expect(regexp.MustCompile(regexpStr), 10*time.Minute)
 	if err != nil {
 		fmt.Println("Expect Error : ", err)
+	}
+
+	if len(strings.TrimSpace(output)) == 0 {
+		fmt.Println("Not Match!")
 	}
 
 	fmt.Println("output : " + output)
