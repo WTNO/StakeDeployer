@@ -45,9 +45,9 @@ func Step1() {
 		&expect.BSnd{S: "english\n"},
 		&expect.BExp{R: ".*Create a password that secures your validator keystore.*"},
 		&expect.BSnd{S: "123456789\n"},
-		&expect.BExp{R: ".*Eepeat your keystore password for confirmatio.*"},
+		&expect.BExp{R: ".*Repeat your keystore password for confirmatio.*"},
 		&expect.BSnd{S: "123456789\n"},
-	}, 10*time.Second)
+	}, 30*time.Second)
 
 	fmt.Println("mnemonic start")
 
