@@ -60,6 +60,7 @@ func Step1() {
 	}
 	command.RunExpect(e, ".*Press any key when you have written down your mnemonic.*", "\n")
 
+	// TODO：问题停留在这一步
 	// 输入上一步中的mnemonic
 	for {
 		output, _, _ := command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic)
