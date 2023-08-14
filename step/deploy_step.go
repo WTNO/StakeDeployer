@@ -49,6 +49,8 @@ func Step1() {
 		&expect.BSnd{S: "123456789\n"},
 	}, 10*time.Second)
 
+	fmt.Println("mnemonic start")
+
 	// 这一步需要保存mnemonic
 	// This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.
 	//
