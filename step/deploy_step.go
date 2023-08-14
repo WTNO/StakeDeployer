@@ -50,9 +50,10 @@ func Step1() {
 	//
 	//
 	// Press any key when you have written down your mnemonic.
-	output, _, _ := command.RunExpect(e, ".*This is your mnemonic (seed phrase).*", "\n")
+	output, _, _ := command.RunExpect(e, ".*This is your mnemonic.*", "\n")
 	re, _ := regexp.Compile("\n\n.*\n\n")
 	mnemonic := strings.TrimSpace(re.FindString(output))
+	fmt.Println("mnemonic : ", mnemonic)
 	file.WriteFile(mnemonic, "~/mnemonic")
 
 	// 输入上一步中的mnemonic
