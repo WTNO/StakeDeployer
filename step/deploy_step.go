@@ -31,22 +31,14 @@ func Step1() {
 
 	command.RunExpect(e, ".*Please choose the language of the mnemonic word list.*", "english\n")
 
-	command.RunExpect(e, ".*Create a password that secures your validator keystore.*", "12345678\n\n")
+	command.RunExpect(e, ".*Create a password that secures your validator keystore.*", "12345678\n")
 
-	command.RunExpect(e, ".*Repeat your keystore password for confirmation:.*", "12345678\n")
-
-	//e.ExpectBatch([]expect.Batcher{
-	//	&expect.BExp{R: ".*Using the tool on an offline and secure device is highly recommended to keep your mnemonic safe..*"},
-	//	&expect.BSnd{S: "\n"},
-	//	&expect.BExp{R: ".*Repeat your execution address for confirmation.*"},
-	//	&expect.BSnd{S: "0x4D496CcC28058B1D74B7a19541663E21154f9c84\n"},
-	//	&expect.BExp{R: ".*Please choose the language of the mnemonic word list.*"},
-	//	&expect.BSnd{S: "english\n"},
-	//	&expect.BExp{R: ".*Create a password that secures your validator keystore.*"},
-	//	&expect.BSnd{S: "123456789\n"},
-	//	&expect.BExp{R: ".*Repeat your keystore password for confirmatio.*"},
-	//	&expect.BSnd{S: "123456789\n"},
-	//}, 30*time.Second)
+	for {
+		output, _, _ := command.RunExpect(e, ".*Repeat your keystore password for confirmation:.*", "12345678\n")
+		if strings.Contains(output, "Repeat your keystore password") {
+			break
+		}
+	}
 
 	fmt.Println("mnemonic start")
 

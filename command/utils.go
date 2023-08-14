@@ -66,7 +66,7 @@ func RunExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, error) {
 	fmt.Println("1-----------------------------------------------------")
 
-	output, match, err := e.Expect(regexp.MustCompile(regexpStr), 30*time.Second)
+	output, match, err := e.Expect(regexp.MustCompile(regexpStr), 90*time.Second)
 	fmt.Println("1.5--- : ", output, match, err)
 
 	if err != nil {
@@ -91,5 +91,29 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 }
 
 func RunExpectBatch(e *expect.GExpect, command string, dials ...Dial) error {
+	return nil
+}
+
+func ExpectRun(cmd *exec.Cmd, expectStr, sendStr string) error {
+	writer, _ := cmd.StdinPipe()
+	reader, _ := cmd.StdoutPipe()
+
+	tmp := make([]byte, 4096)
+	_, err := reader.Read(tmp)
+	if err != nil {
+		fmt.Println("Read Error : ", err)
+		return err
+	}
+
+	if !strings.Contains(string(tmp), expectStr) {
+		fmt.Println("Not Match ~")
+	}
+
+	_, err = writer.Write([]byte(sendStr))
+	if err != nil {
+		fmt.Println("Write Error : ", err)
+		return err
+	}
+
 	return nil
 }
