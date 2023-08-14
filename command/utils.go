@@ -74,6 +74,7 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 	if err != nil {
 		fmt.Println("Send Error : ", err)
 	}
+	fmt.Println("-----------------------------------------------------")
 	return output, match, nil
 }
 

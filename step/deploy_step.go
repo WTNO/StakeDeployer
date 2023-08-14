@@ -29,7 +29,7 @@ func Step1() {
 
 	command.RunExpect(e, ".*Repeat your execution address for confirmation.*", "0x4D496CcC28058B1D74B7a19541663E21154f9c84\n")
 
-	command.RunExpect(e, ".*Please choose the language of the mnemonic word list.*", "\n")
+	command.RunExpect(e, ".*Please choose the language of the mnemonic word list.*", "english\n")
 
 	command.RunExpect(e, ".*Create a password that secures your validator keystore(s).*", "123456789\n")
 
