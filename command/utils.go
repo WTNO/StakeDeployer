@@ -68,7 +68,7 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 		fmt.Println("Expect Error : ", err)
 	}
 
-	fmt.Println(output)
+	fmt.Println("output : " + output)
 
 	err = e.Send(sendStr)
 	if err != nil {
