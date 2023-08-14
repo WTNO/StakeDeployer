@@ -15,7 +15,7 @@ func Step1() {
 	//command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
 
 	// 解压
-	command.RunCommand("/bin/bash", "-c", "tar xvf staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
+	//command.RunCommand("/bin/bash", "-c", "tar xvf staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
 
 	// 运行存款工具
 	e, _, err := expect.Spawn("./staking_deposit-cli-d7b5304-linux-amd64/deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84", -1)
@@ -33,7 +33,7 @@ func Step1() {
 
 	command.RunExpect(e, ".*Create a password that secures your validator keystore.*", "123456789\n")
 
-	command.RunExpect(e, ".*epeat your keystore password for confirmatio.*", "123456789\n")
+	command.RunExpect(e, ".*Eepeat your keystore password for confirmatio.*", "123456789\n")
 
 	// 这一步需要保存mnemonic
 	// This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.
