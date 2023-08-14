@@ -50,16 +50,20 @@ func Step1() {
 	//
 	//
 	// Press any key when you have written down your mnemonic.
-	output, _, _ := command.RunExpect(e, ".*This is your mnemonic.*", "\n")
+	output, _, _ := command.RunExpect(e, ".*This is your mnemonic.*", "")
 	re, _ := regexp.Compile("\n\n.*\n\n")
 	mnemonic := strings.TrimSpace(re.FindString(output))
 	fmt.Println("mnemonic : ", mnemonic)
-	file.WriteFile(mnemonic, "~/mnemonic")
+	err = file.WriteFile(mnemonic, "~/mnemonic")
+	if err != nil {
+		fmt.Println(err)
+	}
+	command.RunExpect(e, ".*Press any key when you have written down your mnemonic.*", "\n")
 
 	// 输入上一步中的mnemonic
 	command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic)
 
-	command.RunExpect(e, ".*Success!\nYour keys can be found at.*", "\n")
+	command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 
 	fmt.Println("Step 1 is over...")
 }

@@ -79,7 +79,6 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 		fmt.Println("Not Match!")
 	}
 
-	fmt.Println("output : " + output)
 	fmt.Println("3-----------------------------------------------------")
 
 	err = e.Send(sendStr)
