@@ -19,7 +19,7 @@ func Step1() {
 
 	// 运行存款工具
 	e, _, err := expect.Spawn("./staking_deposit-cli-d7b5304-linux-amd64/deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84", -1)
-	fmt.Println(e.String())
+	fmt.Println("Spawn : " + e.String())
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -31,9 +31,9 @@ func Step1() {
 
 	command.RunExpect(e, ".*Please choose the language of the mnemonic word list.*", "\n")
 
-	command.RunExpect(e, ".*Create a password that secures your validator keystore.*", "12345678\n")
+	command.RunExpect(e, ".*Create a password that secures your validator keystore(s).*", "123456789\n")
 
-	command.RunExpect(e, ".*Repeat your keystore password for confirmation:.*", "12345678\n")
+	command.RunExpect(e, ".*Repeat your keystore password for confirmation:.*", "123456789\n")
 
 	// 这一步需要保存mnemonic
 	// This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.
