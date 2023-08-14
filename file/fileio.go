@@ -21,3 +21,13 @@ func ReadAndWriteFile(inputFilePath, outputFilePath string) error {
 	log.Printf("write to %s success!", outputFilePath)
 	return nil
 }
+
+func WriteFile(content, outputFilePath string) error {
+	err := os.WriteFile(outputFilePath, []byte(content), 0644)
+	if err != nil {
+		return err
+	}
+
+	log.Printf("write to %s success!", outputFilePath)
+	return nil
+}

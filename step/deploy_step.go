@@ -4,7 +4,9 @@ import (
 	"fmt"
 	expect "github.com/google/goexpect"
 	"github.com/wtno/StakeDeployer/command"
-	"log"
+	"github.com/wtno/StakeDeployer/file"
+	"regexp"
+	"strings"
 )
 
 func Step1() {
@@ -17,8 +19,9 @@ func Step1() {
 
 	// 运行存款工具
 	e, _, err := expect.Spawn("./staking_deposit-cli-d7b5304-linux-amd64/deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84", -1)
+	fmt.Println(e.String())
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer e.Close()
 
@@ -40,10 +43,13 @@ func Step1() {
 	//
 	//
 	// Press any key when you have written down your mnemonic.
-	command.RunExpect(e, ".*This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.*", "\n")
+	output, _, _ := command.RunExpect(e, ".*This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.*", "\n")
+	re, _ := regexp.Compile("\n\n.*\n\n")
+	mnemonic := strings.TrimSpace(re.FindString(output))
+	file.WriteFile(mnemonic, "~/mnemonic")
 
 	// 输入上一步中的mnemonic
-	command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", "\n")
+	command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic)
 
 	command.RunExpect(e, ".*Success!\nYour keys can be found at.*", "\n")
 

@@ -53,19 +53,28 @@ func runCommand(name string, arg ...string) error {
 	return nil
 }
 
-func RunExpect(e *expect.GExpect, regexpStr, sendStr string) error {
-	output, _, err := e.Expect(regexp.MustCompile(regexpStr), 10*time.Minute)
+func RunExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, error) {
+	output, match, err := runExpect(e, regexpStr, sendStr)
 	if err != nil {
-		fmt.Println("RunExpect Error : ", err)
+		panic(err)
+	}
+
+	return output, match, err
+}
+
+func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, error) {
+	output, match, err := e.Expect(regexp.MustCompile(regexpStr), 10*time.Minute)
+	if err != nil {
+		fmt.Println("Expect Error : ", err)
 	}
 
 	fmt.Println(output)
 
 	err = e.Send(sendStr)
 	if err != nil {
-		fmt.Println("RunExpect Error : ", err)
+		fmt.Println("Send Error : ", err)
 	}
-	return nil
+	return output, match, nil
 }
 
 func RunExpectBatch(e *expect.GExpect, command string, dials ...Dial) error {
