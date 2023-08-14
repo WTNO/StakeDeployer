@@ -61,7 +61,12 @@ func Step1() {
 	command.RunExpect(e, ".*Press any key when you have written down your mnemonic.*", "\n")
 
 	// 输入上一步中的mnemonic
-	command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic)
+	for {
+		output, _, _ := command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic)
+		if strings.Contains(output, "Please type your mnemonic") {
+			break
+		}
+	}
 
 	command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 
