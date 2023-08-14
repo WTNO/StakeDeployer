@@ -43,7 +43,7 @@ func Step1() {
 	//
 	//
 	// Press any key when you have written down your mnemonic.
-	output, _, _ := command.RunExpect(e, ".*This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.*", "\n")
+	output, _, _ := command.RunExpect(e, ".*This is your mnemonic (seed phrase). Write it.*", "\n")
 	re, _ := regexp.Compile("\n\n.*\n\n")
 	mnemonic := strings.TrimSpace(re.FindString(output))
 	file.WriteFile(mnemonic, "~/mnemonic")
