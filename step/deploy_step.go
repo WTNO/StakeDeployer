@@ -54,7 +54,8 @@ func Step1() {
 	re, _ := regexp.Compile("\n\n.*\n\n")
 	mnemonic := strings.TrimSpace(re.FindString(output))
 	fmt.Println("mnemonic : ", mnemonic)
-	err = file.WriteFile(mnemonic, "~/mnemonic")
+
+	err = file.CreateAndWriteFile(mnemonic, "~/mnemonic")
 	if err != nil {
 		fmt.Println(err)
 	}

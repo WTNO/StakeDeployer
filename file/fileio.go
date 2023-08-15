@@ -1,6 +1,8 @@
 package file
 
 import (
+	"fmt"
+	"io"
 	"log"
 	"os"
 )
@@ -22,12 +24,19 @@ func ReadAndWriteFile(inputFilePath, outputFilePath string) error {
 	return nil
 }
 
-func WriteFile(content, outputFilePath string) error {
-	err := os.WriteFile(outputFilePath, []byte(content), 0644)
+func CreateAndWriteFile(content, outputFilePath string) error {
+	file, err := os.Create(outputFilePath)
 	if err != nil {
+		fmt.Println("创建文件失败：", err)
 		return err
 	}
 
-	log.Printf("write to %s success!", outputFilePath)
+	_, err = io.WriteString(file, content)
+	if err != nil {
+		fmt.Println("写入文件失败：", err)
+		return err
+	}
+
+	fmt.Println("文件写入成功", err)
 	return nil
 }
