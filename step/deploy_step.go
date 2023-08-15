@@ -42,8 +42,6 @@ func Step1() {
 		}
 	}
 
-	fmt.Println("mnemonic start")
-
 	// 这一步需要保存mnemonic
 	mnemonic := matchMnemonic(e)
 
@@ -51,13 +49,11 @@ func Step1() {
 	// 输入上一步中的mnemonic
 	typeMnemonic(e, mnemonic)
 
-	fmt.Println("======================end======================")
 	time.Sleep(10 * time.Second)
 	//command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 	re := regexp.MustCompile(".*Your keys can be found at.*")
 	for {
 		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z#]+"), 10*time.Second)
-		fmt.Println(output)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -81,7 +77,6 @@ func matchMnemonic(e *expect.GExpect) string {
 	mnemonic := "mnemonic"
 	for {
 		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
-		//fmt.Println(output)
 
 		if err != nil {
 			fmt.Println(err)
@@ -89,7 +84,6 @@ func matchMnemonic(e *expect.GExpect) string {
 
 		if re1.MatchString(output) {
 			mnemonic = strings.TrimSpace(re1.FindString(output))
-			fmt.Println("mnemonic : ", mnemonic)
 			err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
 			if err != nil {
 				fmt.Println(err)
@@ -116,7 +110,6 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 
 		if re.MatchString(output) {
 			e.Send(mnemonic + "\n")
-			//e.Send("")
 			break
 		}
 	}
