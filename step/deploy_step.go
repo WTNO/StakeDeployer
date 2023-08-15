@@ -57,6 +57,8 @@ func Step1() {
 	//	}
 	//}
 	typeMnemonic(e, mnemonic)
+
+	fmt.Println("======================end======================")
 	time.Sleep(10 * time.Second)
 	//command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 	re := regexp.MustCompile(".*Your keys can be found at.*")
