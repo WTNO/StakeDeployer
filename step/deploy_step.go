@@ -67,7 +67,6 @@ func Step1() {
 		fmt.Println(output)
 		if err != nil {
 			fmt.Println(err)
-			continue
 		}
 
 		if re.MatchString(output) {
@@ -119,7 +118,6 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 
 		if err != nil {
 			fmt.Println(err)
-			continue
 		}
 
 		e.Send(mnemonic + "\n")
