@@ -55,7 +55,7 @@ func Step1() {
 	mnemonic := strings.TrimSpace(re.FindString(output))
 	fmt.Println("mnemonic : ", mnemonic)
 
-	err = file.CreateAndWriteFile(mnemonic, "~/mnemonic.txt")
+	err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
