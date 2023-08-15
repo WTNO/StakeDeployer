@@ -103,9 +103,8 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 		}
 
 		if re.MatchString(output) {
-			e.Send(mnemonic)
+			e.Send(mnemonic + "\n")
 		}
-		e.Send("\n")
 	}
 }
 
