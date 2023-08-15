@@ -7,6 +7,7 @@ import (
 	"github.com/wtno/StakeDeployer/file"
 	"regexp"
 	"strings"
+	"time"
 )
 
 func Step1() {
@@ -43,23 +44,18 @@ func Step1() {
 	fmt.Println("mnemonic start")
 
 	// 这一步需要保存mnemonic
-	// This is your mnemonic (seed phrase). Write it down and store it safely. It is the ONLY way to retrieve your deposit.
-	//
-	//
-	// alarm fog wedding immense success couch staff future endless dilemma broccoli clever rotate humor endless toward laugh include loan invite segment use moral float
-	//
-	//
-	// Press any key when you have written down your mnemonic.
-	output, _, _ := command.RunExpect(e, ".*This is your mnemonic.*", "")
-	re, _ := regexp.Compile("\n\n.*\n\n")
-	mnemonic := strings.TrimSpace(re.FindString(output))
-	fmt.Println("mnemonic : ", mnemonic)
+	mnemonicMatch(e)
 
-	err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-	command.RunExpect(e, ".*Press any key when you have written down your mnemonic.*", "\n")
+	//output, _, _ := command.RunExpect(e, ".*This is your mnemonic.*", "")
+	//re, _ := regexp.Compile("\n\n.*\n\n")
+	//mnemonic := strings.TrimSpace(re.FindString(output))
+	//fmt.Println("mnemonic : ", mnemonic)
+	//
+	//err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//command.RunExpect(e, ".*Press any key when you have written down your mnemonic.*", "\n")
 
 	// TODO：问题停留在这一步
 	// 输入上一步中的mnemonic
@@ -75,6 +71,29 @@ func Step1() {
 	command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 
 	fmt.Println("Step 1 is over...")
+}
+
+// 匹配mnemonic
+func mnemonicMatch(e *expect.GExpect) {
+	re1 := regexp.MustCompile("\n.*\n")
+	re2 := regexp.MustCompile(".*Press any key when you have written down your mnemonic.*")
+
+	for {
+		output, _, err := e.Expect(regexp.MustCompile(".*"), 10*time.Second)
+
+		if re1.MatchString(output) {
+			mnemonic := strings.TrimSpace(re1.FindString(output))
+			err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+
+		if re2.MatchString(output) {
+			break
+		}
+	}
+	e.Send("\n")
 }
 
 func Step2() {
