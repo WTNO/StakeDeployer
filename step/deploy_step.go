@@ -95,15 +95,18 @@ func matchMnemonic(e *expect.GExpect) string {
 }
 
 func typeMnemonic(e *expect.GExpect, mnemonic string) {
-	//re := regexp.MustCompile(".*type your mnemonic.*")
+	re := regexp.MustCompile(".*type your mnemonic.*")
 	for {
-		_, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
+		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
 
 		if err != nil {
 			fmt.Println(err)
 		}
 
 		e.Send(mnemonic + "\n")
+		if re.MatchString(output) {
+			break
+		}
 	}
 }
 
