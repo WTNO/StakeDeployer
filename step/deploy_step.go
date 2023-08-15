@@ -50,7 +50,6 @@ func Step1() {
 	// TODO：问题停留在这一步
 	// 输入上一步中的mnemonic
 	typeMnemonic(e, mnemonic)
-	typeMnemonic(e, mnemonic)
 
 	fmt.Println("======================end======================")
 	time.Sleep(10 * time.Second)
@@ -114,7 +113,8 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 			fmt.Println(err)
 		}
 
-		e.Send(mnemonic + "\n")
+		e.Send(mnemonic)
+		e.Send("\n")
 		if re.MatchString(output) {
 			break
 		}
