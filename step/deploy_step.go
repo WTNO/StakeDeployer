@@ -109,7 +109,9 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 
 func Step2() {
 	// 第二个步骤的逻辑
-	fmt.Println("Step 2")
+	fmt.Println("Step 2 has started...")
+
+	fmt.Println("Step 2 is over...")
 }
 
 func Step3() {
