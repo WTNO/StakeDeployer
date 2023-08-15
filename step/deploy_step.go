@@ -78,9 +78,9 @@ func mnemonicMatch(e *expect.GExpect) string {
 	re1 := regexp.MustCompile("\n.*\n")
 	re2 := regexp.MustCompile(".*Press any key when you have written down your mnemonic.*")
 
-	mnemonic := ""
+	mnemonic := "mnemonic"
 	for {
-		output, _, err := e.Expect(regexp.MustCompile(".*"), 10*time.Second)
+		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]*"), 10*time.Second)
 		fmt.Println("****************", output)
 		if re1.MatchString(output) {
 			mnemonic = strings.TrimSpace(re1.FindString(output))

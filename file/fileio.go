@@ -37,6 +37,6 @@ func CreateAndWriteFile(content, outputFilePath string) error {
 		return err
 	}
 
-	fmt.Println("文件写入成功", err)
+	fmt.Println("文件写入成功")
 	return nil
 }
