@@ -64,13 +64,13 @@ func Step1() {
 	// TODO：问题停留在这一步
 	// 输入上一步中的mnemonic
 	for {
-		output, _, _ := command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic)
+		output, _, _ := command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic+"\n")
 		if strings.Contains(output, "Please type your mnemonic") {
 			break
 		}
 	}
 
-	command.RunExpect(e, `\s*`, "\n")
+	//command.RunExpect(e, `\s*`, "\n")
 
 	command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 
