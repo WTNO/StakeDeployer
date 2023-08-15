@@ -42,28 +42,20 @@ func Step1() {
 		}
 	}
 
-	// 这一步需要保存mnemonic
+	// 匹配并保存输出中的mnemonic
 	mnemonic := matchMnemonic(e)
 
-	// TODO：问题停留在这一步
 	// 输入上一步中的mnemonic
 	typeMnemonic(e, mnemonic)
 
-	time.Sleep(10 * time.Second)
-	//command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 	re := regexp.MustCompile(".*Your keys can be found at.*")
-	for {
-		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z#]+"), 10*time.Second)
-		if err != nil {
-			fmt.Println(err)
-		}
+	output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z#]+"), 10*time.Second)
+	if err != nil {
+		fmt.Println(err)
+	}
 
-		if re.MatchString(output) {
-			e.Send("\n")
-			break
-		} else {
-			time.Sleep(1 * time.Second)
-		}
+	if re.MatchString(output) {
+		e.Send("\n")
 	}
 
 	fmt.Println("Step 1 is over...")
