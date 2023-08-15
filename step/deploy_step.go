@@ -68,7 +68,7 @@ func matchMnemonic(e *expect.GExpect) string {
 	re1 := regexp.MustCompile("\n\n.*\n\n")
 	re2 := regexp.MustCompile(".*Press any key when you have written down your mnemonic.*")
 
-	mnemonic := "mnemonic"
+	mnemonic := ""
 	for {
 		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
 		fmt.Println(output)
@@ -90,7 +90,7 @@ func matchMnemonic(e *expect.GExpect) string {
 			break
 		}
 	}
-	e.Send("\n")
+	e.Send(mnemonic + "\n")
 	return mnemonic
 }
 
