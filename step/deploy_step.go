@@ -82,6 +82,7 @@ func mnemonicMatch(e *expect.GExpect) string {
 	for {
 		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]*"), 10*time.Second)
 		fmt.Println("****************", output)
+		e.Send("")
 		if re1.MatchString(output) {
 			mnemonic = strings.TrimSpace(re1.FindString(output))
 			err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
