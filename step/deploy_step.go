@@ -46,27 +46,15 @@ func Step1() {
 	// 这一步需要保存mnemonic
 	mnemonic := mnemonicMatch(e)
 
-	//output, _, _ := command.RunExpect(e, ".*This is your mnemonic.*", "")
-	//re, _ := regexp.Compile("\n\n.*\n\n")
-	//mnemonic := strings.TrimSpace(re.FindString(output))
-	//fmt.Println("mnemonic : ", mnemonic)
-	//
-	//err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	//command.RunExpect(e, ".*Press any key when you have written down your mnemonic.*", "\n")
-
 	// TODO：问题停留在这一步
 	// 输入上一步中的mnemonic
 	for {
 		output, _, _ := command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic+"\n")
+		fmt.Println("****************", output)
 		if strings.Contains(output, "Please type your mnemonic") {
 			break
 		}
 	}
-
-	//command.RunExpect(e, `\s*`, "\n")
 
 	command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 
@@ -81,7 +69,7 @@ func mnemonicMatch(e *expect.GExpect) string {
 	mnemonic := "mnemonic"
 	for {
 		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
-		fmt.Println("****************", output)
+		fmt.Println(output)
 		if re1.MatchString(output) {
 			mnemonic = strings.TrimSpace(re1.FindString(output))
 			fmt.Println("mnemonic : ", mnemonic)
