@@ -75,7 +75,7 @@ func Step1() {
 
 // 匹配mnemonic
 func mnemonicMatch(e *expect.GExpect) string {
-	re1 := regexp.MustCompile("\n.*\n")
+	re1 := regexp.MustCompile("\n\n.*\n\n")
 	re2 := regexp.MustCompile(".*Press any key when you have written down your mnemonic.*")
 
 	mnemonic := "mnemonic"
@@ -85,6 +85,7 @@ func mnemonicMatch(e *expect.GExpect) string {
 		e.Send("")
 		if re1.MatchString(output) {
 			mnemonic = strings.TrimSpace(re1.FindString(output))
+			fmt.Println("mnemonic : ", mnemonic)
 			err = file.CreateAndWriteFile(mnemonic, "mnemonic.txt")
 			if err != nil {
 				fmt.Println(err)
