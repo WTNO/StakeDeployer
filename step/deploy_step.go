@@ -63,7 +63,7 @@ func Step1() {
 	//command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 	re := regexp.MustCompile(".*Your keys can be found at.*")
 	for {
-		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
+		output, _, err := e.Expect(regexp.MustCompile(".*Your keys can be found at.*"), 10*time.Second)
 		if err != nil {
 			fmt.Println(err)
 		}
