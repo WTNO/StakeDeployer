@@ -113,9 +113,9 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 			fmt.Println(err)
 		}
 
-		e.Send(mnemonic)
-		e.Send("\n")
 		if re.MatchString(output) {
+			e.Send(mnemonic + "\n")
+			//e.Send("")
 			break
 		}
 	}
