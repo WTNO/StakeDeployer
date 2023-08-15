@@ -111,6 +111,7 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 
 		if err != nil {
 			fmt.Println(err)
+			e.Send("\n")
 		}
 
 		if re.MatchString(output) {
