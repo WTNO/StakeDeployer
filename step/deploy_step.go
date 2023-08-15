@@ -70,7 +70,9 @@ func Step1() {
 		}
 	}
 
-	command.RunExpect(e, ".*", "\n")
+	command.RunExpect(e, `\s*`, "\n")
+
+	command.RunExpect(e, ".*Your keys can be found at.*", "\n")
 
 	fmt.Println("Step 1 is over...")
 }
