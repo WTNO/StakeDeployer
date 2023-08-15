@@ -49,13 +49,7 @@ func Step1() {
 
 	// TODO：问题停留在这一步
 	// 输入上一步中的mnemonic
-	//for {
-	//	output, _, _ := command.RunExpect(e, ".*Please type your mnemonic (separated by spaces) to confirm you have written it down.*", mnemonic+"\n")
-	//	fmt.Println("****************", output)
-	//	if strings.Contains(output, "Please type your mnemonic") {
-	//		break
-	//	}
-	//}
+	typeMnemonic(e, mnemonic)
 	typeMnemonic(e, mnemonic)
 
 	fmt.Println("======================end======================")
@@ -114,7 +108,7 @@ func matchMnemonic(e *expect.GExpect) string {
 func typeMnemonic(e *expect.GExpect, mnemonic string) {
 	re := regexp.MustCompile(".*type your mnemonic.*")
 	for {
-		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
+		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z#]+"), 10*time.Second)
 
 		if err != nil {
 			fmt.Println(err)
