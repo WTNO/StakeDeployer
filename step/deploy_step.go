@@ -80,7 +80,7 @@ func mnemonicMatch(e *expect.GExpect) string {
 
 	mnemonic := "mnemonic"
 	for {
-		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]*"), 10*time.Second)
+		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
 		fmt.Println("****************", output)
 		e.Send("")
 		if re1.MatchString(output) {
