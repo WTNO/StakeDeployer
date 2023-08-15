@@ -58,7 +58,20 @@ func Step1() {
 	//}
 	typeMnemonic(e, mnemonic)
 
-	command.RunExpect(e, ".*Your keys can be found at.*", "\n")
+	//command.RunExpect(e, ".*Your keys can be found at.*", "\n")
+	re := regexp.MustCompile(".*Your keys can be found at.*")
+	for {
+		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		e.Send("\n")
+
+		if re.MatchString(output) {
+			break
+		}
+	}
 
 	fmt.Println("Step 1 is over...")
 }
@@ -68,7 +81,7 @@ func matchMnemonic(e *expect.GExpect) string {
 	re1 := regexp.MustCompile("\n\n.*\n\n")
 	re2 := regexp.MustCompile(".*Press any key when you have written down your mnemonic.*")
 
-	mnemonic := ""
+	mnemonic := "mnemonic"
 	for {
 		output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z]+"), 10*time.Second)
 		fmt.Println(output)
@@ -90,7 +103,7 @@ func matchMnemonic(e *expect.GExpect) string {
 			break
 		}
 	}
-	e.Send(mnemonic + "\n")
+	e.Send("\n")
 	return mnemonic
 }
 
