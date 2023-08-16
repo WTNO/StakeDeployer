@@ -108,39 +108,49 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 }
 
 func Step2() {
-	// 第二个步骤的逻辑
 	fmt.Println("Step 2 has started...")
-	fmt.Println("跳过")
+	fmt.Println("连接到服务器:bu跳过")
 	fmt.Println("Step 2 is over...")
 }
 
 func Step3() {
-	// 第三个步骤的逻辑
 	fmt.Println("Step 3 has started...")
-	command.RunCommand("/bin/bash", "-c", "sudo apt -y update && sudo apt -y upgrade")
-	command.RunCommand("/bin/bash", "-c", "sudo apt dist-upgrade && sudo apt autoremove")
-	command.RunCommand("/bin/bash", "-c", "sudo reboot")
+
+	fmt.Println("更新服务器：跳过")
+
+	//command.RunCommand("/bin/bash", "-c", "sudo apt -y update && sudo apt -y upgrade")
+	//command.RunCommand("/bin/bash", "-c", "sudo apt dist-upgrade && sudo apt autoremove")
+	//command.RunCommand("/bin/bash", "-c", "sudo reboot")
 
 	fmt.Println("Step 3 is over...")
 }
 
 func Step4() {
-	// 第四个步骤的逻辑
-	fmt.Println("Step 4")
+	fmt.Println("Step 4 has started...")
+
+	fmt.Println("保护服务器：跳过")
+
+	fmt.Println("Step 4 is over...")
 }
 
 func Step5() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 5")
+	fmt.Println("Step 5 has started...")
+
+	fmt.Println("创建交换空间：跳过")
+
+	fmt.Println("Step 5 is over...")
 }
 
 func Step6() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 6")
+	fmt.Println("Step 6 has started...")
+
+	fmt.Println("配置时间同步：跳过")
+
+	fmt.Println("Step 6 is over...")
 }
 
+// 生成客户端身份验证密钥
 func Step7() {
-	// 第五个步骤的逻辑
 	fmt.Println("Step 7")
 }
 
