@@ -2,8 +2,10 @@ package command
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	expect "github.com/google/goexpect"
+	"os"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -98,8 +100,22 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 	return output, match, nil
 }
 
-func RunExpectBatch(e *expect.GExpect, command string, dials ...Dial) error {
-	return nil
+func CheckServiceRunning(service string) {
+	cmd := fmt.Sprintf("sudo systemctl status %s", service)
+	e, _, err := expect.Spawn(cmd, -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
+	fmt.Println("Spawn : " + e.String())
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer e.Close()
+
+	output, _, _ := e.Expect(regexp.MustCompile("[a-zA-Z]+"), -1)
+	fmt.Println("[OUTPUT] : ", output)
+	if !strings.Contains(output, "active (running)") {
+		panic(errors.New(fmt.Sprintf("service %s is not running", service)))
+	}
+
+	e.Send("q")
 }
 
 func ExpectRun(cmd *exec.Cmd, expectStr, sendStr string) error {
