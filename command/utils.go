@@ -22,6 +22,13 @@ func RunCommand(name string, arg ...string) {
 	}
 }
 
+func RunSudoCommand(name string, arg ...string) {
+	err := runCommand(name, arg...)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func runCommand(name string, arg ...string) error {
 	cmd := exec.Command(name, arg...) // 命令的错误输出和标准输出都连接到同一个管道
 	fmt.Println("RunCommand : ", name, arg)

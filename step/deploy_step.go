@@ -109,7 +109,7 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 
 func Step2() {
 	fmt.Println("Step 2 has started...")
-	fmt.Println("连接到服务器:bu跳过")
+	fmt.Println("连接到服务器:跳过")
 	fmt.Println("Step 2 is over...")
 }
 
@@ -151,7 +151,12 @@ func Step6() {
 
 // 生成客户端身份验证密钥
 func Step7() {
-	fmt.Println("Step 7")
+	fmt.Println("Step 7 has started...")
+
+	command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/jwtsecret")
+	command.RunCommand("/bin/bash", "-c", "openssl rand -hex 32 | sudo tee /var/lib/jwtsecret/jwt.hex > /dev/null")
+
+	fmt.Println("Step 7 is over...")
 }
 
 func Step8() {
