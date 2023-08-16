@@ -110,13 +110,18 @@ func typeMnemonic(e *expect.GExpect, mnemonic string) {
 func Step2() {
 	// 第二个步骤的逻辑
 	fmt.Println("Step 2 has started...")
-
+	fmt.Println("跳过")
 	fmt.Println("Step 2 is over...")
 }
 
 func Step3() {
 	// 第三个步骤的逻辑
-	fmt.Println("Step 3")
+	fmt.Println("Step 3 has started...")
+	command.RunCommand("/bin/bash", "-c", "sudo apt -y update && sudo apt -y upgrade")
+	command.RunCommand("/bin/bash", "-c", "sudo apt dist-upgrade && sudo apt autoremove")
+	command.RunCommand("/bin/bash", "-c", "sudo reboot")
+
+	fmt.Println("Step 3 is over...")
 }
 
 func Step4() {
