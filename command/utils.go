@@ -138,6 +138,5 @@ func ExpectRun(cmd *exec.Cmd, expectStr, sendStr string) error {
 		fmt.Println("Write Error : ", err)
 		return err
 	}
-
 	return nil
 }
