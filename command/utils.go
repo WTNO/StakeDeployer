@@ -105,7 +105,7 @@ func CheckServiceRunning(service string) {
 	}
 	defer e.Close()
 
-	output, _, _ := e.Expect(regexp.MustCompile(".*active (running).*"), -1)
+	output, _, _ := e.Expect(regexp.MustCompile(".*active (running).*"), 10*time.Second)
 	fmt.Println("[OUTPUT] : ", output)
 	//if !strings.Contains(output, "active (running)") {
 	//	panic(errors.New(fmt.Sprintf("service %s is not running", service)))
