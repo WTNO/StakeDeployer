@@ -36,9 +36,6 @@ func runCommand(name string, arg ...string) error {
 	stdout, err := cmd.StdoutPipe()
 	cmd.Stderr = cmd.Stdout
 
-	//var stderr bytes.Buffer
-	//cmd.Stderr = &stderr
-
 	if err != nil {
 		fmt.Println("StdoutPipe Error : " + err.Error())
 		return err
@@ -66,7 +63,6 @@ func runCommand(name string, arg ...string) error {
 
 	if err = cmd.Wait(); err != nil {
 		fmt.Println("Wait Error : " + err.Error())
-		//fmt.Println(fmt.Sprint(err) + ": " + stderr.String())
 		return err
 	}
 
