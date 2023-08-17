@@ -19,6 +19,8 @@ func ReadAndWriteFile(inputFilePath, outputFilePath string) error {
 		return err
 	}
 
+	fmt.Println("content : ", content)
+
 	_, err = io.WriteString(file, string(content))
 	if err != nil {
 		fmt.Println("写入文件失败：", err)
