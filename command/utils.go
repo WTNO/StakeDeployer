@@ -1,7 +1,6 @@
 package command
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	expect "github.com/google/goexpect"
@@ -37,8 +36,8 @@ func runCommand(name string, arg ...string) error {
 	stdout, err := cmd.StdoutPipe()
 	cmd.Stderr = cmd.Stdout
 
-	var stderr bytes.Buffer
-	cmd.Stderr = &stderr
+	//var stderr bytes.Buffer
+	//cmd.Stderr = &stderr
 
 	if err != nil {
 		fmt.Println("StdoutPipe Error : " + err.Error())
@@ -58,16 +57,16 @@ func runCommand(name string, arg ...string) error {
 		_, err := stdout.Read(tmp)
 		fmt.Print(string(tmp))
 		if err != nil {
-			if err.Error() != "EOF" {
-				fmt.Println("Read Error : " + err.Error())
-			}
+			//if err.Error() != "EOF" {
+			fmt.Println("Read Error : " + err.Error())
+			//}
 			break
 		}
 	}
 
 	if err = cmd.Wait(); err != nil {
 		fmt.Println("Wait Error : " + err.Error())
-		fmt.Println(fmt.Sprint(err) + ": " + stderr.String())
+		//fmt.Println(fmt.Sprint(err) + ": " + stderr.String())
 		return err
 	}
 
