@@ -30,13 +30,14 @@ func ReadAndWriteFile(inputFilePath, outputFilePath string) error {
 	fmt.Println("filePath", filePath)
 
 	// 读取文件内容
-	content, err := os.ReadFile(filePath)
+	//content, err := os.ReadFile(filePath)
+	content, err := Asset(filePath)
 	if err != nil {
 		fmt.Println("读取文件失败：", err)
 		return err
 	}
 
-	fmt.Println("content : ", content)
+	fmt.Println("content : ", string(content))
 
 	_, err = io.WriteString(file, string(content))
 	if err != nil {

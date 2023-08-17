@@ -3,6 +3,7 @@ module github.com/wtno/StakeDeployer
 go 1.20
 
 require (
+	github.com/go-bindata/go-bindata v3.1.2+incompatible // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/goexpect v0.0.0-20210430020637-ab937bf7fd6f // indirect
 	github.com/google/goterm v0.0.0-20200907032337-555d40f16ae2 // indirect
