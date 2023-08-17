@@ -16,6 +16,7 @@ func ReadAndWriteFile(inputFilePath, outputFilePath string) error {
 	// 读取文件内容
 	content, err := os.ReadFile(inputFilePath)
 	if err != nil {
+		fmt.Println("读取文件失败：", err)
 		return err
 	}
 
