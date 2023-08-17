@@ -199,14 +199,32 @@ func Step8() {
 	fmt.Println("Step 8 is over...")
 }
 
+// 安装Prysm共识客户端
 func Step9() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 9")
+	fmt.Println("Step 9 has started...")
+
+	// 下载Prysm共识客户端
+	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/beacon-chain-v4.0.7-linux-amd64")
+	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/validator-v4.0.7-linux-amd64")
+
+	// 重命名文件并使其可执行
+	command.RunCommand("/bin/bash", "-c", "mv beacon-chain-v4.0.7-linux-amd64 beacon-chain")
+	command.RunCommand("/bin/bash", "-c", "mv validator-v4.0.7-linux-amd64 validator")
+	command.RunCommand("/bin/bash", "-c", "chmod +x beacon-chain")
+	command.RunCommand("/bin/bash", "-c", "chmod +x validator")
+	command.RunCommand("/bin/bash", "-c", "sudo cp beacon-chain /usr/local/bin")
+	command.RunCommand("/bin/bash", "-c", "sudo cp validator /usr/local/bin")
+
+	// 清理文件夹
+	command.RunCommand("/bin/bash", "-c", "rm beacon-chain && rm validator")
+
+	fmt.Println("Step 9 is over...")
 }
 
 func Step10() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 10")
+	fmt.Println("Step 10 has started...")
+
+	fmt.Println("Step 10 is over...")
 }
 
 func Step11() {
