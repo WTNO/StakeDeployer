@@ -57,9 +57,9 @@ func runCommand(name string, arg ...string) error {
 		_, err := stdout.Read(tmp)
 		fmt.Print(string(tmp))
 		if err != nil {
-			//if err.Error() != "EOF" {
-			fmt.Println("Read Error : " + err.Error())
-			//}
+			if err.Error() != "EOF" {
+				fmt.Println("Read Error : " + err.Error())
+			}
 			break
 		}
 	}
