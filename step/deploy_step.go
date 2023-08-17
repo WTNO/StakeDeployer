@@ -212,8 +212,8 @@ func Step9() {
 	command.RunCommand("/bin/bash", "-c", "mv validator-v4.0.7-linux-amd64 validator")
 	command.RunCommand("/bin/bash", "-c", "chmod +x beacon-chain")
 	command.RunCommand("/bin/bash", "-c", "chmod +x validator")
-	command.RunCommand("/bin/bash", "-c", "sudo cp beacon-chain /usr/local/bin")
-	command.RunCommand("/bin/bash", "-c", "sudo cp validator /usr/local/bin")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo cp beacon-chain /usr/local/bin")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo cp validator /usr/local/bin")
 
 	// 清理文件夹
 	command.RunCommand("/bin/bash", "-c", "rm beacon-chain && rm validator")
@@ -221,8 +221,14 @@ func Step9() {
 	fmt.Println("Step 9 is over...")
 }
 
+// 导入验证者密钥
 func Step10() {
 	fmt.Println("Step 10 has started...")
+
+	// 将验证器密钥库文件导入Prysm
+	command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
+	command.RunSudoCommand("/bin/bash", "-c", "/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli")
 
 	fmt.Println("Step 10 is over...")
 }
