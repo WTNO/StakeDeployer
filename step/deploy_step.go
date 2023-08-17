@@ -228,6 +228,8 @@ func Step10() {
 	// 将验证器密钥库文件导入Prysm
 	command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
 	command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
+
+	// 下面这一步有互动过程
 	command.RunSudoCommand("/bin/bash", "-c", "/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli")
 
 	fmt.Println("Step 10 is over...")
