@@ -1,6 +1,7 @@
 package command
 
 import (
+	"errors"
 	"fmt"
 	expect "github.com/google/goexpect"
 	"os"
@@ -107,9 +108,9 @@ func CheckServiceRunning(service string) {
 
 	output, _, _ := e.Expect(regexp.MustCompile(".*active (running).*"), 10*time.Second)
 	fmt.Println("[OUTPUT] : ", output)
-	//if !strings.Contains(output, "active (running)") {
-	//	panic(errors.New(fmt.Sprintf("service %s is not running", service)))
-	//}
+	if !strings.Contains(output, "active (running)") {
+		panic(errors.New(fmt.Sprintf("service %s is not running", service)))
+	}
 
 	e.Send("q")
 }
