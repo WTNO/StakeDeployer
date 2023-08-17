@@ -186,15 +186,15 @@ func Step8() {
 	//command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R geth:geth /var/lib/geth")
 	//
 	//// 创建一个systemd服务配置文件来配置服务。
-	file.ReadAndWriteFile("config/geth.config", "/etc/systemd/system/geth.service")
+	//file.ReadAndWriteFile("config/geth.config", "/etc/systemd/system/geth.service")
 	//
 	//// 重新加载systemd以反映更改并启动服务。检查状态以确保它正常运行。
-	//command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl daemon-reload")
-	//command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl start geth")
-	//command.CheckServiceRunning("geth")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl daemon-reload")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl start geth")
+	command.CheckServiceRunning("geth")
 	////
 	////// 启用geth服务以在重新启动时自动启动。
-	//command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl enable geth")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl enable geth")
 
 	fmt.Println("Step 8 is over...")
 }
