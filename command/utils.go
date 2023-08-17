@@ -50,6 +50,8 @@ func runCommand(name string, arg ...string) error {
 		return err
 	}
 
+	fmt.Println("[OUTPUT] : ")
+
 	// 从管道中实时获取输出并打印到终端
 	for {
 		tmp := make([]byte, 1024)
@@ -103,7 +105,7 @@ func runExpect(e *expect.GExpect, regexpStr, sendStr string) (string, []string, 
 func CheckServiceRunning(service string) {
 	cmd := fmt.Sprintf("sudo systemctl status %s", service)
 	e, _, err := expect.Spawn(cmd, -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
-	fmt.Println("Spawn : " + e.String())
+	fmt.Println("Spawn : " + cmd)
 	if err != nil {
 		fmt.Println(err)
 	}
