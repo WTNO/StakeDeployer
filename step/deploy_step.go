@@ -304,6 +304,7 @@ func Step12() {
 	fmt.Println("Step 12 is over...")
 }
 
+// 为验证者提供资金
 func Step13() {
 	fmt.Println("Step 13 has started...")
 
