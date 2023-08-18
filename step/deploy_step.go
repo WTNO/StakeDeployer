@@ -275,7 +275,7 @@ func Step11() {
 	command.CheckServiceRunning("prysmbeacon")
 
 	// 启用geth服务以在重新启动时自动启动。
-	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl enable geth")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl enable prysmbeacon")
 
 	fmt.Println("Step 11 is over...")
 }
