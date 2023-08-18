@@ -226,12 +226,23 @@ func Step10() {
 	fmt.Println("Step 10 has started...")
 
 	// 将验证器密钥库文件导入Prysm
-	//command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
-	//command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
-	//
-	//// 下面这一步有互动过程
-	//command.RunSudoCommand("/bin/bash", "-c", "/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
 
+	// 下面这一步有互动过程
+	e, _, err := expect.Spawn("/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli", -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
+	fmt.Println("Spawn : " + e.String())
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer e.Close()
+
+	command.RunExpect(e, ".*to accept this terms and conditions.*", "accept\n")
+	command.RunExpect(e, ".*New wallet password.*", "cptbtptp\n")
+	command.RunExpect(e, ".*Confirm password.*", "cptbtptp\n")
+	// 输入第一步中创建密钥时提供的密码
+	command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
+	command.RunExpect(e, ".*Importing accounts.*", "")
 	fmt.Println("Step 10 is over...")
 }
 
