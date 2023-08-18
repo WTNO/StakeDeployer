@@ -14,10 +14,10 @@ import (
 func Step1() {
 	fmt.Println("Step 1 has started...")
 	// 下载存款工具
-	//command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
+	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/ethereum/staking-deposit-cli/releases/download/v2.5.0/staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
 
 	// 解压
-	//command.RunCommand("/bin/bash", "-c", "tar xvf staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
+	command.RunCommand("/bin/bash", "-c", "tar xvf staking_deposit-cli-d7b5304-linux-amd64.tar.gz")
 
 	// 运行存款工具
 	e, _, err := expect.Spawn("./staking_deposit-cli-d7b5304-linux-amd64/deposit new-mnemonic --num_validators 2 --chain goerli --eth1_withdrawal_address 0x4D496CcC28058B1D74B7a19541663E21154f9c84", -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
@@ -204,8 +204,8 @@ func Step9() {
 	fmt.Println("Step 9 has started...")
 
 	// 下载Prysm共识客户端
-	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/beacon-chain-v4.0.7-linux-amd64")
-	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/validator-v4.0.7-linux-amd64")
+	//command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/beacon-chain-v4.0.7-linux-amd64")
+	//command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/validator-v4.0.7-linux-amd64")
 
 	// 重命名文件并使其可执行
 	command.RunCommand("/bin/bash", "-c", "mv beacon-chain-v4.0.7-linux-amd64 beacon-chain")
