@@ -204,8 +204,8 @@ func Step9() {
 	fmt.Println("Step 9 has started...")
 
 	// 下载Prysm共识客户端
-	//command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/beacon-chain-v4.0.7-linux-amd64")
-	//command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/validator-v4.0.7-linux-amd64")
+	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/beacon-chain-v4.0.7-linux-amd64")
+	command.RunCommand("/bin/bash", "-c", "curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v4.0.7/validator-v4.0.7-linux-amd64")
 
 	// 重命名文件并使其可执行
 	command.RunCommand("/bin/bash", "-c", "mv beacon-chain-v4.0.7-linux-amd64 beacon-chain")
@@ -226,8 +226,8 @@ func Step10() {
 	fmt.Println("Step 10 has started...")
 
 	// 将验证器密钥库文件导入Prysm
-	command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
-	command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
+	//command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
+	//command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
 
 	// 下面这一步有互动过程
 	e, _, err := expect.Spawn("/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli", -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
@@ -237,9 +237,11 @@ func Step10() {
 	}
 	defer e.Close()
 
-	command.RunExpect(e, ".*to accept this terms and conditions.*", "accept\n")
-	command.RunExpect(e, ".*New wallet password.*", "cptbtptp\n")
-	command.RunExpect(e, ".*Confirm password.*", "cptbtptp\n")
+	//command.RunExpect(e, ".*to accept this terms and conditions.*", "accept\n")
+	//command.RunExpect(e, ".*New wallet password.*", "cptbtptp\n")
+	//command.RunExpect(e, ".*Confirm password.*", "cptbtptp\n")
+	command.RunExpect(e, ".*Wallet password.*", "cptbtptp\n")
+
 	// 输入第一步中创建密钥时提供的密码
 	command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
 	command.RunExpect(e, ".*Importing accounts.*", "")
