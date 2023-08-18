@@ -305,8 +305,11 @@ func Step12() {
 }
 
 func Step13() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 13")
+	fmt.Println("Step 13 has started...")
+
+	fmt.Println("第13步需要手动进行")
+
+	fmt.Println("Step 13 is over...")
 }
 
 func Step14() {
