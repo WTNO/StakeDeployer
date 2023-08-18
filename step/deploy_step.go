@@ -237,10 +237,11 @@ func Step10() {
 	}
 	defer e.Close()
 
-	//command.RunExpect(e, ".*to accept this terms and conditions.*", "accept\n")
-	//command.RunExpect(e, ".*New wallet password.*", "cptbtptp\n")
-	//command.RunExpect(e, ".*Confirm password.*", "cptbtptp\n")
-	command.RunExpect(e, ".*Wallet password.*", "cptbtptp\n")
+	command.RunExpect(e, ".*to accept this terms and conditions.*", "accept\n")
+	command.RunExpect(e, ".*New wallet password.*", "cptbtptp\n")
+	command.RunExpect(e, ".*Confirm password.*", "cptbtptp\n")
+
+	//command.RunExpect(e, ".*Wallet password.*", "cptbtptp\n")
 
 	// 输入第一步中创建密钥时提供的密码
 	command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
