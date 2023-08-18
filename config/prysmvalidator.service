@@ -1,0 +1,18 @@
+[Unit]
+Description=Prysm Consensus Client VC (Goerli Test Network)
+Wants=network-online.target
+After=network-online.target
+[Service]
+User=prysmvalidator
+Group=prysmvalidator
+Type=simple
+Restart=always
+RestartSec=5
+ExecStart=/usr/local/bin/validator \
+  --datadir=/var/lib/prysm/validator \
+  --wallet-dir=/var/lib/prysm/validator \
+  --wallet-password-file=/var/lib/prysm/validator/password.txt \
+  --graffiti="wtnowtno" \
+  --accept-terms-of-use
+[Install]
+WantedBy=multi-user.target

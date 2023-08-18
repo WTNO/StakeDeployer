@@ -280,9 +280,28 @@ func Step11() {
 	fmt.Println("Step 11 is over...")
 }
 
+// 配置验证器服务
 func Step12() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 12")
+	fmt.Println("Step 12 has started...")
+
+	// 设置帐户
+	command.RunSudoCommand("/bin/bash", "-c", "sudo useradd --no-create-home --shell /bin/false prysmvalidator")
+
+	// 在第10步中，验证器导入过程创建了以下目录：/var/lib/prysm/validator。设置目录权限，以便prysmvalidator账户可以修改该目录。
+	command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R prysmvalidator:prysmvalidator /var/lib/prysm/validator")
+
+	// 创建并配置服务
+	file.ReadAndWriteFile("config/prysmvalidator.service", "/etc/systemd/system/prysmvalidator.service")
+
+	// 重新加载systemd以反映更改并启动服务。检查状态以确保它正常运行。
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl daemon-reload")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl start prysmvalidator")
+	command.CheckServiceRunning("prysmvalidator")
+
+	// 启用geth服务以在重新启动时自动启动。
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl enable prysmvalidator")
+
+	fmt.Println("Step 12 is over...")
 }
 
 func Step13() {
