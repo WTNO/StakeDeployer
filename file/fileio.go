@@ -13,21 +13,6 @@ func ReadAndWriteFile(inputFilePath, outputFilePath string) error {
 		return err
 	}
 
-	// 获取当前可执行文件的绝对路径
-	//exePath, err := os.Executable()
-	//if err != nil {
-	//	fmt.Println("获取可执行文件路径失败：", err)
-	//	return err
-	//}
-
-	// 获取可执行文件所在的目录路径
-	//dirPath := filepath.Dir(exePath)
-	//fmt.Println("dirPath", dirPath)
-	//
-	//// 构建要读取的文件的路径
-	//filePath := filepath.Join(dirPath, inputFilePath)
-	//fmt.Println("filePath", filePath)
-
 	// 读取文件内容
 	//content, err := os.ReadFile(filePath)
 	content, err := Asset(inputFilePath)
