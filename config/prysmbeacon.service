@@ -1,0 +1,25 @@
+[Unit]
+Description=Prysm Consensus Client BN (Goerli Test Network)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prysmbeacon
+Group=prysmbeacon
+Type=simple
+Restart=always
+RestartSec=5
+ExecStart=/usr/local/bin/beacon-chain \
+  --goerli \
+  --datadir=/var/lib/prysm/beacon \
+  --execution-endpoint=http://127.0.0.1:8551 \
+  --jwt-secret=/var/lib/jwtsecret/jwt.hex \
+  --suggested-fee-recipient=0x5Bc4d6760C24Eb7939d3D28A380ADd2EAfFc55d5 \
+  --enable-debug-rpc-endpoints \
+  --grpc-max-msg-size=65568081 \
+  --checkpoint-sync-url=https://prater-checkpoint-sync.stakely.io \
+  --genesis-beacon-api-url=https://prater-checkpoint-sync.stakely.io \
+  --accept-terms-of-use
+
+[Install]
+WantedBy=multi-user.target

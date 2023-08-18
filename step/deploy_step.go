@@ -226,27 +226,28 @@ func Step10() {
 	fmt.Println("Step 10 has started...")
 
 	// 将验证器密钥库文件导入Prysm
-	//command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
-	//command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/validator")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R root:root /var/lib/prysm/validator")
 
 	// 下面这一步有互动过程
-	//e, _, err := expect.Spawn("/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli", -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
-	//fmt.Println("Spawn : " + e.String())
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	//defer e.Close()
+	e, _, err := expect.Spawn("/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli", -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
+	fmt.Println("Spawn : " + e.String())
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer e.Close()
 
 	// 创建钱包密码
-	//command.RunExpect(e, ".*to accept this terms and conditions.*", "accept\n")
-	//command.RunExpect(e, ".*New wallet password.*", "cptbtptp\n")
-	//command.RunExpect(e, ".*Confirm password.*", "cptbtptp\n")
+	command.RunExpect(e, ".*to accept this terms and conditions.*", "accept\n")
+	command.RunExpect(e, ".*New wallet password.*", "cptbtptp\n")
+	command.RunExpect(e, ".*Confirm password.*", "cptbtptp\n")
 
+	// 这一步是在下面代码出现报错expect: Process not running时执行的
 	//command.RunExpect(e, ".*Wallet password.*", "cptbtptp\n")
 
 	// 输入第一步中创建密钥时提供的密码
-	//command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
-	//command.RunExpect(e, ".*Importing accounts.*", "")
+	command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
+	command.RunExpect(e, ".*Importing accounts.*", "")
 
 	// 创建钱包密码文件
 	file.CreateAndWriteFile("cptbtptp", "/var/lib/prysm/validator/password.txt")
@@ -254,9 +255,29 @@ func Step10() {
 	fmt.Println("Step 10 is over...")
 }
 
+// 配置Beacon节点服务
 func Step11() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 11")
+	fmt.Println("Step 11 has started...")
+
+	// 设置帐户
+	command.RunSudoCommand("/bin/bash", "-c", "sudo useradd --no-create-home --shell /bin/false prysmbeacon")
+
+	// 设置目录和权限
+	command.RunSudoCommand("/bin/bash", "-c", "sudo mkdir -p /var/lib/prysm/beacon")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo chown -R prysmbeacon:prysmbeacon /var/lib/prysm/beacon")
+
+	// 创建并配置服务
+	file.ReadAndWriteFile("config/prysmbeacon.service", "/etc/systemd/system/prysmbeacon.service")
+
+	// 重新加载systemd以反映更改并启动服务。检查状态以确保它正常运行。
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl daemon-reload")
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl start prysmbeacon")
+	command.CheckServiceRunning("prysmbeacon")
+
+	// 启用geth服务以在重新启动时自动启动。
+	command.RunSudoCommand("/bin/bash", "-c", "sudo systemctl enable geth")
+
+	fmt.Println("Step 11 is over...")
 }
 
 func Step12() {
