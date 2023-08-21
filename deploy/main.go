@@ -52,21 +52,6 @@ func main() {
 	case 13:
 		step.Step13()
 		fallthrough
-	case 14:
-		step.Step14()
-		fallthrough
-	case 15:
-		step.Step15()
-		fallthrough
-	case 16:
-		step.Step16()
-		fallthrough
-	case 17:
-		step.Step17()
-		fallthrough
-	case 18:
-		step.Step18()
-		fallthrough
 	default:
 		fmt.Println("The deployment execution has concluded.")
 	}
