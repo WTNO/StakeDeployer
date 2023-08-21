@@ -308,26 +308,23 @@ func Step12() {
 func Step13() {
 	fmt.Println("Step 13 has started...")
 
-	// 重新调用一次步骤1
-	Step1()
-
 	// 下面这一步有互动过程
-	//e, _, err := expect.Spawn("/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli", -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
-	//fmt.Println("Spawn : " + e.String())
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	//defer e.Close()
-	//
-	//// 这一步是在下面代码出现报错expect: Process not running时执行的
-	//command.RunExpect(e, ".*Wallet password.*", "cptbtptp\n")
-	//
-	//// 输入第一步中创建密钥时提供的密码
-	//command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
-	//command.RunExpect(e, ".*Importing accounts.*", "")
-	//
-	//// 创建钱包密码文件
-	//file.CreateAndWriteFile("cptbtptp", "/var/lib/prysm/validator/password.txt")
+	e, _, err := expect.Spawn("/usr/local/bin/validator accounts import --keys-dir=$HOME/validator_keys --wallet-dir=/var/lib/prysm/validator --goerli", -1, expect.Verbose(true), expect.VerboseWriter(os.Stdout))
+	fmt.Println("Spawn : " + e.String())
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer e.Close()
+
+	// 这一步是在下面代码出现报错expect: Process not running时执行的
+	command.RunExpect(e, ".*Wallet password.*", "cptbtptp\n")
+
+	// 输入第一步中创建密钥时提供的密码
+	command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
+	command.RunExpect(e, ".*Importing accounts.*", "")
+
+	// 创建钱包密码文件
+	file.CreateAndWriteFile("cptbtptp", "/var/lib/prysm/validator/password.txt")
 
 	fmt.Println("Step 13 is over...")
 }
