@@ -15,7 +15,7 @@ func main() {
 	switch *stepNum {
 	case 1:
 		step.Step1()
-		//fallthrough
+		fallthrough
 	case 2:
 		step.Step2()
 		fallthrough
@@ -48,7 +48,7 @@ func main() {
 		fallthrough
 	case 12:
 		step.Step12()
-		fallthrough
+		//fallthrough
 	case 13:
 		step.Step13()
 		fallthrough

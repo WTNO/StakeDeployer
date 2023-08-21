@@ -49,19 +49,14 @@ func Step1() {
 	typeMnemonic(e, mnemonic)
 
 	//re := regexp.MustCompile(".*Your keys can be found at.*")
-	output, _, err := e.Expect(regexp.MustCompile("[a-zA-Z#]+"), 10*time.Second)
+	_, _, err = e.Expect(regexp.MustCompile("[a-zA-Z#]+"), 10*time.Second)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println("OUTPUT : ", output)
 	fmt.Println("wait for 10 seconds ...")
 	time.Sleep(10 * time.Second)
 	e.Send("\n")
-
-	//if re.MatchString(output) {
-	//
-	//}
 
 	fmt.Println("Step 1 is over...")
 }
