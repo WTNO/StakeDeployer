@@ -323,6 +323,9 @@ func Step13() {
 	command.RunExpect(e, ".*Enter the password for your.*", "12345678\n")
 	command.RunExpect(e, ".*Importing accounts.*", "")
 
+	fmt.Println("wait for 10 seconds ...")
+	time.Sleep(10 * time.Second)
+
 	// 创建钱包密码文件
 	file.CreateAndWriteFile("cptbtptp", "/var/lib/prysm/validator/password.txt")
 
