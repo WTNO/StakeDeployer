@@ -312,28 +312,3 @@ func Step13() {
 
 	fmt.Println("Step 13 is over...")
 }
-
-func Step14() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 14")
-}
-
-func Step15() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 15")
-}
-
-func Step16() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 16")
-}
-
-func Step17() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 17")
-}
-
-func Step18() {
-	// 第五个步骤的逻辑
-	fmt.Println("Step 18")
-}
