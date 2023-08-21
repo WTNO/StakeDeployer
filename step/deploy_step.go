@@ -55,6 +55,7 @@ func Step1() {
 	}
 
 	if re.MatchString(output) {
+		time.Sleep(10 * time.Second)
 		e.Send("\n")
 	}
 
