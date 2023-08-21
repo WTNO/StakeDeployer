@@ -55,6 +55,7 @@ func Step1() {
 	}
 
 	if re.MatchString(output) {
+		fmt.Println("wait for 10 seconds ...")
 		time.Sleep(10 * time.Second)
 		e.Send("\n")
 	}
